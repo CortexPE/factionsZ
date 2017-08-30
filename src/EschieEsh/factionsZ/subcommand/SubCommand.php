@@ -1,0 +1,85 @@
+<?php
+namespace EscieEsh\factionsZ\subcommand;
+
+use pocketmine\plugin\Plugin;
+use EschieEsh\factionsZ\factionsZ;
+use pocketmine\command\CommandSender;
+use pocketmine\command\PluginIdentifiableCommand;
+
+abstract class SubCommand implements PluginIdentifiableCommand
+{
+	/** @var factionsZ $plugin */
+	private $plugin;
+	/** @var string $name */
+	private $name;
+	/**
+	 * @param factionsZ $plugin
+	 * @param string $name
+	 */
+	public function __construct(factionsZ $plugin, string $name)
+    {
+		$this->plugin = $plugin;
+		$this->name = $name;
+	}
+	/**
+	 * @return factionsZ|Plugin
+	 */
+	public final function getPlugin(): Plugin
+    {
+		return $this->plugin;
+	}
+	/**
+	 * @param string $str
+	 * @param string[] $params
+	 *
+	 * @param string $onlyPrefix
+	 * @return string
+	 */
+	protected function translateString(string $str, array $params = [], string $onlyPrefix = null)
+    {
+		return $this->plugin->getLanguage()->translateString($str, $params, $onlyPrefix);
+	}
+	/**
+	 * @param CommandSender $sender
+	 * @return bool
+	 */
+	public abstract function canUse(CommandSender $sender);
+	/**
+	 * @return string
+	 */
+	public final function getUsage(): string
+    {
+		$usage = $this->getPlugin()->getLanguage()->get($this->name . ".usage");
+		return ($usage == $this->name . ".usage") ? "" : $usage;
+	}
+	/**
+	 * @return string
+	 */
+	public final function getName(): string
+    {
+		$name = $this->getPlugin()->getLanguage()->get($this->name . ".name");
+		return ($name == $this->name . ".name") ? "" : $name;
+	}
+	/**
+	 * @return string
+	 */
+	public final function getDescription(): string
+    {
+		$desc = $this->getPlugin()->getLanguage()->get($this->name . ".desc");
+		return ($desc == $this->name . ".desc") ? "" : $desc;
+	}
+	/**
+	 * @return string
+	 */
+	public final function getAlias(): string
+    {
+		$alias = $this->getPlugin()->getLanguage()->get($this->name . ".alias");
+		return ($alias == $this->name . ".alias") ? "" : $alias;
+	}
+	/**
+	 * @param CommandSender $sender
+	 * @param string[] $args
+	 * @return bool
+	 */
+	public abstract function execute(CommandSender $sender, array $args);
+}
