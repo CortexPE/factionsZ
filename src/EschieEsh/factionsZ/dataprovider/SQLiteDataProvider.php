@@ -8,7 +8,8 @@ class SQLiteDataProvider extends DataProvider
     private $db;
     /** @var \SQLite3Stmt */
     private $sqlCreateFaction_PlayerData, $sqlCreateFaction_FactionData, $sqlGetPlayerFaction, $sqlFactionExists,
-            $sqlDeleteFaction_PlayerData, $sqlDeleteFaction_FactionData, $sqlKickPlayer, $sqlInvitePlayer, $sqlGetDescription,                 $sqlSetDescription, $sqlAcceptInvite, $sqlDenyInvite, $sqlDeleteInvitation;
+            $sqlDeleteFaction_PlayerData, $sqlDeleteFaction_FactionData, $sqlKickPlayer, $sqlInvitePlayer, $sqlGetDescription,
+            $sqlSetDescription, $sqlAcceptInvite, $sqlDenyInvite, $sqlDeleteInvitation, $sqlGetFactionInfo;
     /**
     * @param factionsZ $plugin
     */
@@ -223,12 +224,7 @@ class SQLiteDataProvider extends DataProvider
         $result = $this->sqlGetFactionInfo->execute();
         $result->fetchArray(SQLITE3_ASSOC);
         
-        if (empty($result["faction"]))
-        {
-            return false;
-        }
-        
-        return $result["faction"];
+        return $result;
     }
     /**
     * @param string $faction
