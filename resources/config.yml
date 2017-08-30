@@ -1,0 +1,5 @@
+# languages - eng
+language: eng
+
+# The data provider where faction data is stored
+DataProvider: sqlite
