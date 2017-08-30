@@ -52,7 +52,8 @@ class Commands extends PluginCommand
 	 * @param string[] $args
 	 * @return bool
 	 */
-	public function execute(CommandSender $sender, string $alias, array $args){
+	public function execute(CommandSender $sender, string $alias, array $args)
+	{
 		if (!isset($args[0]))
         {
 			return false;
